@@ -22,7 +22,9 @@ const myhtml = `<!DOCTYPE html>
 </html>`;
 
 
-const Employee = [];
+const employee = [];
+const employeeHtml = []
+
 runStart();
 function runStart() {
   inquirer
@@ -81,7 +83,7 @@ function addManager() {
         input.empEmail,
         input.empOfficeNum
       );
-      Employee.push(manager);
+      employee.push(manager);
       managerHTML(manager);
       runStart();
     })
@@ -120,7 +122,7 @@ function addEngineer() {
         input.empGithub
       );
 
-      Employee.push(engineer);
+      employee.push(engineer);
       engineerHTML(engineer);
       runStart();
     })
@@ -160,55 +162,56 @@ function addIntern() {
         
       );
 
-      Employee.push(intern);
+      employee.push(intern);
       internHTML(intern);
       runStart();
     })
 }
 function managerHTML(answer){
-  console.log(answer);
+  console.log("MANAGER", answer);
   const html = `<div class="card" style="width: 18rem;">
   <div class="card-body">
-    <h5 class="card-title">${answer.empName}</h5>
-    <h6 class="card-subtitle mb-2 text-muted">${answer.empEmail}</h6>
-    <p>ID: ${answer.empId} </p>
-    <p class="card-text">${answer.empOfficeNum}</p>
+    <h5 class="card-title">${answer.name}</h5>
+    <h6 class="card-subtitle mb-2 text-muted">${answer.email}</h6>
+    <p>ID: ${answer.id} </p>
+    <p class="card-text">${answer.officeNum}</p>
   </div>
 </div>`
 
-Employee.push(html);
+  employeeHtml.push(html);
 }
 
 function engineerHTML(answer){
   console.log(answer);
   const html = `<div class="card" style="width: 18rem;">
   <div class="card-body">
-    <h5 class="card-title">${answer.empName}</h5>
-    <h6 class="card-subtitle mb-2 text-muted">${answer.empEmail}</h6>
-    <p>ID: ${answer.empId} </p>
-    <p class="card-text">${answer.empGithub}</p>
+    <h5 class="card-title">${answer.name}</h5>
+    <h6 class="card-subtitle mb-2 text-muted">${answer.email}</h6>
+    <p>ID: ${answer.id} </p>
+    <p class="card-text">${answer.github}</p>
   </div>
 </div>`
 
-Employee.push(html);
+employeeHtml.push(html);
 }
 
 function internHTML(answer){
   console.log(answer);
   const html = `<div class="card" style="width: 18rem;">
   <div class="card-body">
-    <h5 class="card-title">${answer.empName.getName()}</h5>
-    <h6 class="card-subtitle mb-2 text-muted">${answer.empEmail.getEmail()}</h6>
-    <p>ID: ${answer.empId.getId()} </p>
-    <p class="card-text">${answer.empSchool.getSchool()}</p>
+    <h5 class="card-title">${answer.name}</h5>
+    <h6 class="card-subtitle mb-2 text-muted">${answer.email}</h6>
+    <p>ID: ${answer.id} </p>
+    <p class="card-text">${answer.school}</p>
   </div>
 </div>`
-Employee.push(html);
+employeeHtml.push(html);
 }
 
 
 function finished(){
-  const finalHtml = Employee.join('');
+
+  const finalHtml = employeeHtml.join('');
   const fileToWrite = myhtml.replace('{Placeholder}', finalHtml)
   fs.writeFile("index.html", fileToWrite,(err)=>{
     if(err) console.log(err);
